@@ -30,7 +30,7 @@ public class EnemyShip : MonoBehaviour
 
     private void Update()
     {
-        if (GameController.instance.IsLevelRun)
+        if (GameController.instance.isLevelRun)
         {
             // Проверка на необходимость движения по оси X
             if (Time.time >= nextMoveTime)

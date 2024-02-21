@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7771696916545088651}
   m_Layer: 0
   m_Name: Boat Level 4
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,4 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   cannonPlace: {fileID: 0}
+  price: 200
+  type: 4
   Hp: 100

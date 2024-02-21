@@ -167,7 +167,9 @@ MonoBehaviour:
   reloadTime: 6
   fireRate: 1
   magazineSize: 10
-  bulletSpeed: 50
+  bulletSpeed: 100
+  type: 0
+  price: 0
   nextFireTime: 0
 --- !u!1 &5411136786448401142
 GameObject:

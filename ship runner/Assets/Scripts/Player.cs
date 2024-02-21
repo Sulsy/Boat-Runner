@@ -9,11 +9,29 @@ public class Player : MonoBehaviour,IBoatController
     public Boat currentBoat { get; set; }
     public Cannon currentCannon{ get; set; } 
     public Vector3 targetPosition { get; set; }
+
+    public PlayerMetaData metaData;
     public float coin { get; set; }
 
+    private void Start()
+    {
+        metaData = new PlayerMetaData();
+    }
+
+    public void AddCoin(float coins)
+    {
+        coin += coins;
+        //SaveMetaData();
+    }
+    public void SaveMetaData()
+    {
+        metaData.coin = coin;
+        metaData.boatType = currentBoat.type;
+        metaData.cannonType = currentCannon.type;
+    }
     void Update()
     {
-        if ( GameController.instance.IsLevelRun)
+        if ( GameController.instance.isLevelRun)
         {
             Moved();
         }
@@ -45,4 +63,12 @@ public class Player : MonoBehaviour,IBoatController
         targetPosition = transform.position + Vector3.right * moveInput;
         transform.position = Vector3.Lerp(transform.position, targetPosition, currentBoat.moveSpeed * Time.deltaTime);
     }
+}
+
+public class PlayerMetaData
+{
+    public float coin;
+    public int boatType;
+    public int cannonType;
+
 }

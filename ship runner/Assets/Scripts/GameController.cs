@@ -14,80 +14,107 @@ public class GameController : MonoBehaviour
    [SerializeField] 
    private List<GameObject> boatsPrefabs;
    [SerializeField] 
-   private List<GameObject> gunPrefabs;
+   private List<GameObject> cannonPrefabs;
    [SerializeField] 
    private SplineFollower pSplineFollower;
    [SerializeField] 
    private UIManager uiManager;
+   [SerializeField] 
+   private SplineComputer  spline;
+   [SerializeField] 
    private string filePath;
    
-   public Spline spline; 
-   public float distanceTravelled = 0f;
-   
-   public bool IsLevelRun;
+   public bool isLevelRun;
    public Player player;
    private void Awake()
    {
-      instance = this;
+      instance = this; 
       filePath = Application.persistentDataPath + "/player.json";
    }
 
    private void Start()
    {
-      player.currentBoat=Instantiate(boatsPrefabs[0],player.transform).GetComponent<Boat>();
-      player.currentCannon=Instantiate( gunPrefabs[0],player.currentBoat.GetComponent<Boat>().cannonPlace).GetComponent<Cannon>();
+      if (!LoadPlayer())
+      {
+         SpawnBoat(0,0);
+         player.AddCoin(100);
+      }
+      uiManager.MenuScreen(100,100);
+      MenuScreen();
+   }
+
+   private void SpawnBoat(int boatType,int cannonType)
+   {
+      player.currentBoat = Instantiate(boatsPrefabs[boatType], player.transform).GetComponent<Boat>();
+      SpawnCannon(cannonType);
+   }
+
+   private void SpawnCannon(int cannonType)
+   {
+      player.currentCannon = Instantiate(cannonPrefabs[cannonType], player.currentBoat.GetComponent<Boat>().cannonPlace)
+         .GetComponent<Cannon>();
       player.currentCannon.tag = player.tag;
-      player.coin = 210;
-      uiManager.EndLevel(100, 100);
-      IsLevelRun = false;
-      ss();
+   }
+   
+   public void UpdateBoats()
+   {
+      var updateBoatType = player.currentBoat.type + 1;
+      if (boatsPrefabs.Count<=updateBoatType) return;
+      var updateBoat=boatsPrefabs[updateBoatType].GetComponent<Boat>();
+      if (!(player.coin >= updateBoat.price)) return;
+      
+      player.coin -=  updateBoat.price;
+      Destroy(player.currentBoat.gameObject);
+      SpawnBoat(updateBoatType,player.currentCannon.type);
+      uiManager.UpdateStats();
+   }
+   public void UpdateCannon()
+   {
+      var updateCannonType = player.currentCannon.type + 1;
+      if (cannonPrefabs.Count<=updateCannonType) return;
+      var updateCannon=cannonPrefabs[updateCannonType].GetComponent<Cannon>();
+      if (!(player.coin >= updateCannon.price)) return;
+      
+      player.coin -= updateCannon.price;
+      Destroy(player.currentCannon.gameObject);
+      SpawnCannon(updateCannonType);
+      uiManager.UpdateStats();
+
    }
 
    private void Update()
    {
       uiManager.UpdateStats();
-      if (Input.GetButtonDown("Fire2"))
+      if (isLevelRun)
       {
+         uiManager.UpdateProgress((float)spline.Project(player.transform.position).percent);
+      }
+      else if (Input.GetButtonDown("Fire2"))
+      {
+         SavePlayer();
          StartLevel();
       }
    }
 
-   public void UpdateBoats()
-   {
-      if (player.coin >= 100)
-      {
-         player.coin -= 100;
-         Destroy(player.currentBoat.gameObject);
-         player.currentBoat = Instantiate(boatsPrefabs[1],player.transform).GetComponent<Boat>();
-         player.currentCannon = Instantiate(gunPrefabs[0], player.currentBoat.GetComponent<Boat>().cannonPlace)
-            .GetComponent<Cannon>();
-         uiManager.UpdateStats();
-      }
-   }
-   public void UpdateCannon()
-   {
-      if (player.coin>=100)
-      {
-         Destroy(player.currentCannon.gameObject);
-         player.currentCannon=Instantiate( gunPrefabs[1],player.currentBoat.GetComponent<Boat>().cannonPlace).GetComponent<Cannon>();   
-         uiManager.UpdateStats();
-      }
-      
-   }
-
-   public void StartLevel()
+   private void StartLevel()
    {
       pSplineFollower.enabled = true;
+      isLevelRun = true;
       uiManager.StartLevel();
-      IsLevelRun = true;
-   }
-   public void ss()
-   {
-      pSplineFollower.enabled = false;
-      IsLevelRun = false;
-      uiManager.EndLevel(100,100);
    }
 
+   private void MenuScreen()
+   {
+      pSplineFollower.enabled = false;
+      isLevelRun = false;
+      uiManager.EndLevel(100,100);
+   }
+   public void Win()
+   {
+      player.AddCoin(100);
+      SavePlayer();
+      Restart();
+   }
    public void Lose()
    {
       Restart();
@@ -98,24 +125,27 @@ public class GameController : MonoBehaviour
       var currentSceneName = SceneManager.GetActiveScene().name;
       SceneManager.LoadScene(currentSceneName);
    }
-   
    public void SavePlayer()
    {
-      string jsonData = JsonConvert.SerializeObject(player);
+      player.SaveMetaData();
+      string jsonData = JsonConvert.SerializeObject(player.metaData);
       
       File.WriteAllText(filePath, jsonData);
    }
    
-   public Player LoadPlayer()
+   public bool LoadPlayer()
    {
       if (File.Exists(filePath))
       {
          string jsonData = File.ReadAllText(filePath);
-         return JsonConvert.DeserializeObject<Player>(jsonData);
+         var metaData=JsonConvert.DeserializeObject<PlayerMetaData>(jsonData);
+         player.AddCoin(metaData.coin); 
+         SpawnBoat(metaData.boatType,metaData.cannonType);
+         return true;
       }
       else
       {
-         return null;
+         return false;
       }
    }
 }

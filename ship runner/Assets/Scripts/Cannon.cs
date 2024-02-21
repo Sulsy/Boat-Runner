@@ -10,7 +10,8 @@ public class Cannon : MonoBehaviour
     public float fireRate = 1f; // время перезарядки
     public int magazineSize = 5; // размер магазина
     public float bulletSpeed = 10f; // скорость полета снаряда
-
+    public int type;
+    public int price;
     protected int currentAmmo; // текущее количество патронов в магазине
     public float nextFireTime; // время следующего выстрела
 

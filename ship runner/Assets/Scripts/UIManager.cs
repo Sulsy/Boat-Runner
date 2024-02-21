@@ -37,32 +37,44 @@ public class UIManager : MonoBehaviour
         hp.text += player.currentBoat.Hp;
         coins.text = String.Empty;
         coins.text += player.coin;
-        if (levelProgressBar.IsActive())
-        {
-            //levelProgressBar.value = GameController.instance.distanceTravelled;
-            //levelProgressBar.maxValue = GameController.instance.spline.CalculateLength();
-        }
+    }
+
+    public void UpdateProgress(float progress)
+    {
+        levelProgressBar.value = progress;
     }
 
     public void EndLevel(float boatUpdatePrice,float cannonUpdatePrice )
     {
-        coins.text += player.coin;
-        hp.text += player.currentBoat.Hp.ToString();
-        SetActiveMenu(true);
-        boatUpdateProgress.maxValue = boatUpdatePrice;
-        boatUpdateProgress.maxValue = cannonUpdatePrice;
-        boatPrice.text += boatUpdatePrice;
-        cannonPrice.text += cannonUpdatePrice;
-        boatUpdateProgress.value = player.coin;
-        cannonUpdateProgress.value = player.coin;
-        //boatUpdateButton.enabled = boatUpdatePrice<=player.coin;
-        //cannonUpdateButton.enabled = boatUpdatePrice<=player.coin;     
+       
     }
+
+    public void MenuScreen(float boatUpdatePrice, float cannonUpdatePrice)
+    {
+        UpdateMenu(boatUpdatePrice, cannonUpdatePrice, true);
+    }
+
     public void StartLevel()
+    {
+        UpdateMenu(0f, 0f, false);
+    }
+
+    private void UpdateMenu(float boatUpdatePrice, float cannonUpdatePrice, bool isActive)
     {
         coins.text += player.coin;
         hp.text += player.currentBoat.Hp;
-        SetActiveMenu(false);
+
+        SetActiveMenu(isActive);
+    
+        if (isActive)
+        {
+            boatUpdateProgress.maxValue = boatUpdatePrice;
+            cannonUpdateProgress.maxValue = cannonUpdatePrice;
+            boatPrice.text = "Boat Price: " + boatUpdatePrice;
+            cannonPrice.text = "Cannon Price: " + cannonUpdatePrice;
+            boatUpdateProgress.value = player.coin;
+            cannonUpdateProgress.value = player.coin;
+        }
     }
 
     private void SetActiveMenu(bool stateMenu)
@@ -73,7 +85,8 @@ public class UIManager : MonoBehaviour
         cannonUpdateButton.gameObject.SetActive(stateMenu);
         cannonPrice.gameObject.SetActive(stateMenu);
         boatPrice.gameObject.SetActive(stateMenu);
-       // levelProgressBar.gameObject.SetActive(!stateMenu);
+        levelProgressBar.gameObject.SetActive(!stateMenu);
         Debug.Log(stateMenu);
     }
+
 }

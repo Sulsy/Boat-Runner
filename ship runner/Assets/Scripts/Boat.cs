@@ -4,6 +4,8 @@ public class Boat : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Transform cannonPlace;
+    public float price;
+    public int type;
     [SerializeField] 
     internal float Hp;
 
