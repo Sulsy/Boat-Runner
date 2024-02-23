@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &649278495201092527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 649278495201092496}
+  - component: {fileID: 649278495201092524}
+  - component: {fileID: 649278495201092525}
+  - component: {fileID: 649278495201092497}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &649278495201092496
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649278495201092527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 960, y: 540}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &649278495201092524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649278495201092527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a4b87e9db7bf346933135a567db3ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boatsPrefabs:
+  - {fileID: 901523233405995564, guid: d233430ca1b7b2849a4c0badf1220d00, type: 3}
+  - {fileID: 8809515126061474291, guid: 65aba7961bc743447af8b75b2fd39fc0, type: 3}
+  - {fileID: 136346083281157617, guid: baff283969b7f87429a981e576c3e44a, type: 3}
+  - {fileID: 7843018715656208996, guid: cc2de7bd4ac5bfe43b5bd43d2c76201f, type: 3}
+  cannonPrefabs:
+  - {fileID: 5411136786448401140, guid: 61a570fb65db1364fa259939363d79fa, type: 3}
+  - {fileID: 1786802301621715731, guid: f996abad52ce7934599c8424fab4ab42, type: 3}
+  pSplineFollower: {fileID: 0}
+  uiManager: {fileID: 649278495201092525}
+  spline: {fileID: 0}
+  filePath: 
+  isLevelRun: 0
+  player: {fileID: 0}
+--- !u!114 &649278495201092525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649278495201092527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3060b62c139d1b49a122149af77ac67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiScreen:
+  - {fileID: 6560591496956403296, guid: f5f71dd486e08404d898df260072e0b5, type: 3}
+  - {fileID: 2212272134124111569, guid: 2fda8c343b72adb42932b8b620c3fdb6, type: 3}
+  - {fileID: 8393319706301249691, guid: 8165e1ae46519114994f1ac7d71aff54, type: 3}
+  state: 0
+  uiPlace: {fileID: 0}
+  uiStats: {fileID: 0}
+--- !u!114 &649278495201092497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649278495201092527}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05879df24bac094fad7b442c61309e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bound: {fileID: 6237152627395826318, guid: aaabba95859a83f4a8fed260a9c15056, type: 3}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Dreamteck;
+using UnityEngine.Events;
 
 namespace Dreamteck.Splines{
     [System.Serializable]

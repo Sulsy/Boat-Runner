@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179513678963227214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,12 +165,13 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3635604888881915385, guid: 45b6ace92164bee4e9abb25a7190ad5f, type: 3}
   damage: 10
   reloadTime: 6
-  fireRate: 1
-  magazineSize: 10
+  fireRate: 0.4
+  magazineSize: 20
   bulletSpeed: 100
   type: 0
   price: 0
   nextFireTime: 0
+  Owner: {fileID: 0}
 --- !u!1 &5411136786448401142
 GameObject:
   m_ObjectHideFlags: 0

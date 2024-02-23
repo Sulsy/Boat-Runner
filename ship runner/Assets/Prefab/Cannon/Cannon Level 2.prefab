@@ -133,13 +133,14 @@ MonoBehaviour:
   firePoint: {fileID: 6721965973280503198}
   bulletPrefab: {fileID: 3635604888881915385, guid: 45b6ace92164bee4e9abb25a7190ad5f, type: 3}
   damage: 20
-  reloadTime: 2
-  fireRate: 0.2
-  magazineSize: 10
-  bulletSpeed: 50
+  reloadTime: 5
+  fireRate: 0.7
+  magazineSize: 30
+  bulletSpeed: 100
   type: 1
   price: 100
   nextFireTime: 0
+  Owner: {fileID: 0}
 --- !u!1 &1786802301621715735
 GameObject:
   m_ObjectHideFlags: 0
