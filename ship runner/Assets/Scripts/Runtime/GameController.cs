@@ -84,22 +84,24 @@ public class GameController : MonoBehaviour
 
     public void Restart()
     {
-        var nextSceneName = "";
+        var nextSceneBuildIndex =0;
         if (!_isWin)
         {
-            nextSceneName = SceneManager.GetActiveScene().name;
+            nextSceneBuildIndex = SceneManager.GetActiveScene().buildIndex ;
         }
         else
         {
-            nextSceneName = levelId switch
+            switch (levelId)
             {
-                1 => "Scenes/Level 2",
-                2 => "Scenes/Level 1",
-                _ => nextSceneName
-            };
+                case 1:
+                    nextSceneBuildIndex = 1; 
+                    break;
+                case 2:
+                    nextSceneBuildIndex = 0; 
+                    break;
+            }
         }
-
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene(nextSceneBuildIndex);
     }
 
     public void Exit()
@@ -170,26 +172,22 @@ public class GameController : MonoBehaviour
         }
         else
         {
-#if UNITY_ANDROID
-         if (Input.touchCount > 0)
-         {
-            Touch touch = Input.GetTouch(0);
-            float swipeDelta = touch.deltaPosition.x / Screen.width;
-
-            if (swipeDelta < 0)
-            {
-               uiManager.UpdateUiState(UiState.LevelProgress);
-               StartLevel();
-            }
-         }
-#endif
-#if UNITY_EDITOR
             if (Input.GetButtonDown("Fire2"))
             {
                 uiManager.UpdateUiState(UiState.LevelProgress);
                 StartLevel();
             }
-#endif
+            /*if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                float swipeDelta = touch.deltaPosition.x / Screen.width;
+
+                if (swipeDelta < 0)
+                {
+                    uiManager.UpdateUiState(UiState.LevelProgress);
+                    StartLevel();
+                }
+            }*/
         }
     }
 

@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1338aab3e2bc5b74ea867f7c01c3dbbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
   cannonPlace: {fileID: 2755901718310810319}
+  moveSpeed: 8
   price: 200
   type: 3
-  Hp: 30
+  Hp: 250
 --- !u!64 &8341304969272544165
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: 3
-  IsBoss: 1
+  isBoss: 0
 --- !u!1001 &7173079778870742116
 PrefabInstance:
   m_ObjectHideFlags: 0
